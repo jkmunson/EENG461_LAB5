@@ -5,11 +5,9 @@
 #include <stdint.h>
 #include "inc/hw_nvic.h"
 #include "inc/hw_types.h"
-#include "sw1_int.h"
-#include "adc.h"
-#include "timers.h"
+#include "timerCode.h"
+#include "stepperMotorCode.h"
 #include "string.h"
-#include "sonic_sensor.h"
 
 //*****************************************************************************
 //
@@ -78,20 +76,20 @@ void (* const g_pfnVectors[])(void) =
     IntDefaultHandler,                      // ADC Sequence 0
     IntDefaultHandler,                      // ADC Sequence 1
     IntDefaultHandler,                      // ADC Sequence 2
-    saveADCSample,                          // ADC Sequence 3
+    IntDefaultHandler,                      // ADC Sequence 3
     IntDefaultHandler,                      // Watchdog timer
-    IntDefaultHandler,                      // Timer 0 subtimer A
+    timeKeeperISR,                          // Timer 0 subtimer A
     IntDefaultHandler,                      // Timer 0 subtimer B
-    timeKeeperISR,                          // Timer 1 subtimer A
+    rotate,                                 // Timer 1 subtimer A
     IntDefaultHandler,                      // Timer 1 subtimer B
     IntDefaultHandler,                      // Timer 2 subtimer A
-    TIMER2B_INT_HANDELER,                      // Timer 2 subtimer B
+    IntDefaultHandler,                      // Timer 2 subtimer B
     IntDefaultHandler,                      // Analog Comparator 0
     IntDefaultHandler,                      // Analog Comparator 1
     IntDefaultHandler,                      // Analog Comparator 2
     IntDefaultHandler,                      // System Control (PLL, OSC, BO)
     IntDefaultHandler,                      // FLASH Control
-    PORTF_int_handler,                      // GPIO Port F
+    IntDefaultHandler,                      // GPIO Port F
     IntDefaultHandler,                      // GPIO Port G
     IntDefaultHandler,                      // GPIO Port H
     IntDefaultHandler,                      // UART2 Rx and Tx
@@ -255,7 +253,7 @@ ResetISR(void)
     //
     // Call the application's entry point.
     //
-    
+
     *((uint32_t *)0xE000ED88) = 0xFFFFFFFF; //SPM376e pg 133 - enable FPU
     main();
 }

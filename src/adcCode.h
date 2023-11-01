@@ -1,5 +1,9 @@
-#ifndef EENG461_LAB_3_ADC_H
-#define EENG461_LAB_3_ADC_H
+//
+// Created by Mark Clark on 10/19/23.
+//
+
+#ifndef EENG461_LAB_4_ADCCODE_H
+#define EENG461_LAB_4_ADCCODE_H
 
 #include <stdint.h>
 
@@ -9,4 +13,4 @@ void ADCPinConfigure(void);
 void ADCSampleSequencerConfigure(void);
 void saveADCSample(void);
 
-#endif //EENG461_LAB_3_ADC_H
+#endif //EENG461_LAB_4_ADCCODE_H

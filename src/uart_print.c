@@ -13,13 +13,14 @@
 #define INFINITY 1.0f/0.f
 
 void setup_uart_printer(void){
+	ROM_SysCtlClockSet(SYSCTL_SYSDIV_12_5 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);
 	ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
 	ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
 	while(!ROM_SysCtlPeripheralReady(SYSCTL_PERIPH_UART0)){};
 	
 	ROM_GPIOPadConfigSet(GPIO_PORTA_BASE, 3, GPIO_STRENGTH_8MA, GPIO_PIN_TYPE_STD);
 	ROM_GPIODirModeSet(GPIO_PORTA_BASE, 3, GPIO_DIR_MODE_HW);
-	ROM_UARTConfigSetExpClk(UART0_BASE, ROM_SysCtlClockGet(), 921600,
+	ROM_UARTConfigSetExpClk(UART0_BASE, ROM_SysCtlClockGet(), 9600,
                             (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_TWO | UART_CONFIG_PAR_NONE));
 }
 
