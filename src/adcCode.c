@@ -11,7 +11,7 @@
 #define GPIO_PIN4 (1 << 4)
 #define POT_TRIGGER_MARGIN 0xA
 
-volatile uint16_t potReading;
+volatile uint16_t light;
 
 void ADCPinConfigure(void) {
 
@@ -38,8 +38,6 @@ void ADCSampleSequencerConfigure(void) {
     ADC1_IM_R |= ADC_IM_MASK3;                                  //Enable Interrupt
     NVIC_EN1_R |= 1 << (INT_ADC1SS3 - 16 - 32);                 //Enable NVIC for ADC1 Sequencer 3
 
-    //configureAdcTimer();
-
     ADC1_ACTSS_R |= ADC_ACTSS_ASEN3;                            //Enable Sequencer
 
 }
@@ -49,8 +47,8 @@ void saveADCSample(void){
     ADC1_IM_R &= ~ADC_IM_MASK3;                                 //Disable Interrupt
     ADC1_ISC_R |= ADC_ISC_IN3;                                  //Clear Interrupt
 
-    potReading = (ADC1_SSFIFO3_R & ADC_SSFIFO3_DATA_M);         //Read Potentiometer Value
-
+    light = (ADC1_SSFIFO3_R & ADC_SSFIFO3_DATA_M);         //Read Potentiometer Value
+	uptime_seconds++;
     ADC1_IM_R |= ADC_IM_MASK3;                                  //Enable Interrupt
 
 }

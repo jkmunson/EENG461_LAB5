@@ -5,8 +5,7 @@
 #include "gpioCode.h"
 #include "common/tm4c123gh6pm.h"
 
-volatile uint32_t uptime_milliseconds;
-volatile uint32_t uptime_300ms;
+volatile uint32_t uptime_seconds;
 
 void initTimers(void) {
 
@@ -30,7 +29,7 @@ void initTimers(void) {
     TIMER1_CTL_R &= ~TIMER_CTL_TAEN;                                //Disable Timer
     TIMER1_CFG_R = TIMER_CFG_32_BIT_TIMER;                          //32-bit Timer
     TIMER1_TAMR_R |= TIMER_TAMR_TAMR_PERIOD;                        //Set Timer to count down periodically
-    TIMER1_TAILR_R = SYSCLKFREQ / 800;                              //Set period for 100 Hz
+    TIMER1_TAILR_R = SYSCLKFREQ / 600;                              //Set period for 100 Hz
     TIMER1_ICR_R |= TIMER_ICR_TATOCINT;
     TIMER1_IMR_R |= TIMER_IMR_TATOIM;
     NVIC_EN0_R |= 1 << (INT_TIMER1A - 16);
@@ -39,15 +38,15 @@ void initTimers(void) {
 }
 
 void timeKeeperISR (void) {
-
+/*
     TIMER0_IMR_R &= ~TIMER_IMR_TATOIM;                                      //Disable Interrupt
     TIMER0_ICR_R |= TIMER_ICR_TATOCINT;                                     //Clear Interrupt
 
-    uptime_milliseconds++;
+    //uptime_milliseconds++;
 
     if (uptime_milliseconds % 300 == 0) {
         uptime_300ms++;
     }
 
-    TIMER0_IMR_R |= TIMER_IMR_TATOIM;                                       //Enable Interrupt
+    TIMER0_IMR_R |= TIMER_IMR_TATOIM;                                       //Enable Interrupt*/
 }

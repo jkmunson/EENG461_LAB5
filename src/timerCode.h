@@ -8,8 +8,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-extern volatile uint32_t uptime_milliseconds;
-extern volatile uint32_t uptime_300ms;
+extern volatile uint32_t uptime_seconds;
 
 void initTimers(void);
 void ultraSonicTrigTimerToggle(bool enable);

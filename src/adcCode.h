@@ -7,7 +7,7 @@
 
 #include <stdint.h>
 
-extern volatile uint16_t potReading;
+extern volatile uint16_t light;
 
 void ADCPinConfigure(void);
 void ADCSampleSequencerConfigure(void);
