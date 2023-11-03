@@ -69,7 +69,6 @@ void initStepperMotor(uint8_t num_strides, float stride_angle, uint8_t num_phase
 }
 
 void calculateRotation(float angle) {
-
 	stepper_motor_1.pending_steps += ((angle - stepper_motor_1.current_angle) / stepper_motor_1.stride_angle);
 
 	stepper_motor_1.current_angle = angle;
