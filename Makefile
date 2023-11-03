@@ -59,4 +59,9 @@ credir:
 app_info: $(BUILD_DIR)/${TARGET}.axf
 	arm-none-eabi-readelf -a $(^)
 
+%.pdf: docs/src/%.md Makefile
+	pandoc $< -o $@ --highlight-style tango --pdf-engine=xelatex
+
+report: lab3_report.pdf
+
 .PHONY: all clean flash compiling app_info
